@@ -1,66 +1,67 @@
-## Foundry
+# Solidity Smart Contract Vulnerablities Labs
+This repository contains some labs and their solutions demonstrating various smart contract vulnerabilities found in the real DeFi world. Each lab provides a hands-on challenge to understand and exploit one (somtimes more) security flaw in Solidity-based contracts. 
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## What’s Inside?
+- **Reentrancy Attacks**.
 
-Foundry consists of:
+- **Unbounded Gas Consumption**.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **Storage Collision in Proxies**.
 
-## Documentation
+- **Vault Inflation Attacks** - Ispired by EIP-4626, with a twist.
 
-https://book.getfoundry.sh/
+- **Unsafe Downcasting** - The Integer Overflow of the newer versions of Solidity.
+  
+- And more...
 
-## Usage
-
-### Build
-
-```shell
-$ forge build
+## Labs Structure
+```
+├── src/
+│   ├── VulnName1/
+│   │    ├── Target.sol     # The contract with the vulnerable code
+│   │    ├── Exploit.sol    # If Applicable, Sometimes we won't need this file     
+│   ├── VulnName2/        
+│   .
+|   .
+│
+├── test/   
+│   ├── VulnName1/
+│   │    ├── Target.t.sol   # These are not part of the lab, just tests to make sure the contract is working as intended
+│   │    ├── Exploit.t.sol  # This is where our exploit happens, we simulate the exploitation by running tests
+│   ├── VulnName2/  
+│   .
+│   .
+│    
+├── script/                 # These are not part of the lab, we will just use scripts sometimes to help with simulating deployment
+│
 ```
 
-### Test
+## How to Use
+***Prerequesties*** : Make Sure you have foundry installed.
 
-```shell
-$ forge test
-```
 
-### Format
 
-```shell
-$ forge fmt
-```
+1. Clone the repository: 
+  ```bash
+  git clone https://github.com/amj3x/Solidity-Vulnerabilities-Labs.git
+  cd Solidity-Vulnerabilities-Labs
+  ```
+2. Install dependencies: 
+  ```bash
+  forge install
+  ```
+3. To run a solution; let's take reentrancy as an example, run the following command:
+  ```bash
+  $ forge test --mt testReentrancyAttack -vvv    
+  [⠊] Compiling...
+  No files changed, compilation skipped
 
-### Gas Snapshots
+  Ran 1 test for test/Reentrancy/ExploitReentrancy.t.sol:ExploitReentrancyTest
+  [PASS] testReentrancyAttack() (gas: 681040)
+  Logs:
+    Attacker balance before attack:  1000000000000000000
+    Attacker balance after attack:   2000000000000000000
+  ```
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+***Happy Hacking!!***
+ 
